@@ -2,6 +2,7 @@ package com.example.countdown;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.net.Network;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,8 +23,10 @@ public class CountdownActivity extends AppCompatActivity {
     private EditText time;
     private Button addCountdownButton;
 
-    private String fileName = "data.json";
-    private String url = "";
+    private final String fileName = "data.json";
+    public final String phpFile = "server.php";
+    public final String url = "http://192.168.100.157/Countdown/" + phpFile;
+    private File jsonFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class CountdownActivity extends AppCompatActivity {
         time = findViewById(R.id.editTextTime);
         addCountdownButton = findViewById(R.id.addCountdownBtn);
 
+        jsonFile = new File(getFilesDir(), fileName);
+
         addCountdownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,24 +50,48 @@ public class CountdownActivity extends AppCompatActivity {
                 countdown.setDate(date.getText().toString());
                 countdown.setTime(time.getText().toString());
 
-                Gson gson = new Gson();
+                saveCountdownToFile(countdown);
+                sendCountdownDataToServer();
 
-                // Converting our countdown object to JSON format so that we can send this data to our PHP script
-                String json = gson.toJson(countdown);
-
-                try {
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(getFilesDir() + fileName));
-                    writer.write(json);
-
-                    writer.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-                NetworkManager networkManager = new NetworkManager();
-
-                //networkManager.sendData();
             }
         });
+    }
+    private void saveCountdownToFile(Countdown countdown) {
+        Gson gson = new Gson();
+        String json = gson.toJson(countdown);
+
+        File file = new File(getFilesDir(), fileName);
+
+        try {
+            if (!file.exists()) {
+                if (!file.createNewFile()) {
+                    // Handle the case where file creation fails
+                    Log.e("FileCreation", "Failed to create the file");
+                    return;
+                }
+            }
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write(json);
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    private void sendCountdownDataToServer() {
+        new Thread(new Runnable() {
+            NetworkManager networkManager = new NetworkManager();
+            @Override
+            public void run() {
+
+                try {
+                    networkManager.sendData(url, jsonFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }

@@ -1,10 +1,15 @@
 package com.example.countdown;
 
 import android.provider.MediaStore;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import java.io.File;
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -16,24 +21,45 @@ public class NetworkManager {
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     OkHttpClient client = new OkHttpClient();
 
-    public String fetchData(String url) throws IOException {
+    public void fetchData(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
 
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        }
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    Log.d("NetworkManager", "Response: " + myResponse);
+                }
+            }
+        });
     }
 
-    public String sendData(String url, File json) throws IOException {
+    public void sendData(String url, File json) throws IOException {
         RequestBody body = RequestBody.create(json, JSON);
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
                 .build();
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        }
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    Log.d("NetworkManager", "Response: " + myResponse);
+                }
+            }
+        });
     }
 }

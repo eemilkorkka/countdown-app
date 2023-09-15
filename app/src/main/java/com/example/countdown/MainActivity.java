@@ -2,12 +2,16 @@ package com.example.countdown;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.admin.NetworkEvent;
 import android.content.Intent;
+import android.net.Network;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,5 +30,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        NetworkManager networkManager = new NetworkManager();
+        CountdownActivity countdownActivity = new CountdownActivity();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    networkManager.fetchData(countdownActivity.url);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
