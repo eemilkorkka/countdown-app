@@ -44,15 +44,29 @@ public class CountdownActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Countdown countdown = new Countdown();
+                String inputDate = date.getText().toString();
+                String inputTime = time.getText().toString();
 
-                countdown.setTitle(title.getText().toString());
-                countdown.setDate(date.getText().toString());
-                countdown.setTime(time.getText().toString());
+                // Using regex to make sure that the date is in DD.MM.YYYY format
+                String dateFormat = "^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.\\d{4}$";
 
-                saveCountdownToFile(countdown);
-                sendCountdownDataToServer();
+                // Using regex to make sure that the time is in HH:MM format
+                String timeFormat = "^(?:[01]\\d|2[0-3]):[0-5]\\d$";
 
+                if (inputDate.matches(dateFormat) && inputTime.matches(timeFormat)) {
+                    Countdown countdown = new Countdown();
+
+                    countdown.setTitle(title.getText().toString());
+                    countdown.setDate(date.getText().toString());
+                    countdown.setTime(time.getText().toString());
+
+                    saveCountdownToFile(countdown);
+                    sendCountdownDataToServer();
+                } else if (!inputDate.matches(dateFormat)) {
+                    date.setError("Incorrect date format. Please use DD.MM.YYYY.");
+                } else if (!inputTime.matches(timeFormat)) {
+                    time.setError("Incorrect time format. Please use HH:MM");
+                }
             }
         });
     }

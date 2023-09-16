@@ -1,6 +1,5 @@
 package com.example.countdown;
 
-import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,9 @@ public class NetworkManager {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
+
         client.newCall(request).enqueue(new Callback() {
+
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 e.printStackTrace();
@@ -47,7 +48,9 @@ public class NetworkManager {
                 .url(url)
                 .post(body)
                 .build();
+
         client.newCall(request).enqueue(new Callback() {
+
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 e.printStackTrace();
