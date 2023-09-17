@@ -2,13 +2,16 @@ package com.example.countdown;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Network;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import java.io.BufferedWriter;
@@ -22,6 +25,7 @@ public class CountdownActivity extends AppCompatActivity {
     private EditText date;
     private EditText time;
     private Button addCountdownButton;
+    private FloatingActionButton returnToHomeButton;
 
     private final String fileName = "data.json";
     public final String phpFile = "server.php";
@@ -37,6 +41,7 @@ public class CountdownActivity extends AppCompatActivity {
         date = findViewById(R.id.editTextDate);
         time = findViewById(R.id.editTextTime);
         addCountdownButton = findViewById(R.id.addCountdownBtn);
+        returnToHomeButton = findViewById(R.id.backToHomeBtn);
 
         jsonFile = new File(getFilesDir(), fileName);
 
@@ -44,6 +49,7 @@ public class CountdownActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                String inputTitle = title.getText().toString();
                 String inputDate = date.getText().toString();
                 String inputTime = time.getText().toString();
 
@@ -53,12 +59,12 @@ public class CountdownActivity extends AppCompatActivity {
                 // Using regex to make sure that the time is in HH:MM format
                 String timeFormat = "^(?:[01]\\d|2[0-3]):[0-5]\\d$";
 
-                if (inputDate.matches(dateFormat) && inputTime.matches(timeFormat)) {
+                if (inputDate.matches(dateFormat) && inputTime.matches(timeFormat) && !inputTitle.isEmpty()) {
                     Countdown countdown = new Countdown();
 
-                    countdown.setTitle(title.getText().toString());
-                    countdown.setDate(date.getText().toString());
-                    countdown.setTime(time.getText().toString());
+                    countdown.setTitle(inputTitle);
+                    countdown.setDate(inputDate);
+                    countdown.setTime(inputTime);
 
                     saveCountdownToFile(countdown);
                     sendCountdownDataToServer();
@@ -66,9 +72,20 @@ public class CountdownActivity extends AppCompatActivity {
                     date.setError("Incorrect date format. Please use DD.MM.YYYY.");
                 } else if (!inputTime.matches(timeFormat)) {
                     time.setError("Incorrect time format. Please use HH:MM");
+                } else if (inputTitle.isEmpty()) {
+                    title.setError("Cannot have an empty title.");
                 }
             }
         });
+
+        returnToHomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CountdownActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     private void saveCountdownToFile(Countdown countdown) {
         Gson gson = new Gson();
@@ -92,7 +109,6 @@ public class CountdownActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
     }
-
 
     private void sendCountdownDataToServer() {
         new Thread(new Runnable() {
