@@ -12,10 +12,12 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton newCountdownButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,19 +32,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        NetworkManager networkManager = new NetworkManager();
-        CountdownActivity countdownActivity = new CountdownActivity();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    networkManager.fetchData(countdownActivity.url);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 }

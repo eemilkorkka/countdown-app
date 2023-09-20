@@ -1,9 +1,10 @@
 package com.example.countdown;
 
+import java.util.ArrayList;
+
 public class Countdown {
-    String title;
-    String date;
-    String time;
+
+    private String title, date, time;
 
     public void setTitle(String title) {
         this.title = title;
@@ -28,4 +29,5 @@ public class Countdown {
     public String getTime() {
         return time;
     }
+
 }
