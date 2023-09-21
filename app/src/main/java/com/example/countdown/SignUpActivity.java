@@ -53,6 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (password.equals(confirmPassword)) {
                     createAccount(email, password);
+                    passwordEditText.setError(null);
                 } else {
                     passwordEditText.setError("Passwords do not match!");
                 }
@@ -89,6 +90,8 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
-    private void reload() {}
+    private void reload() {
+
+    }
 }
 

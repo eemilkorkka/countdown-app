@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
@@ -31,6 +33,8 @@ public class CountdownActivity extends AppCompatActivity {
     private Button addCountdownButton;
     private FloatingActionButton returnToHomeButton;
     private DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,9 @@ public class CountdownActivity extends AppCompatActivity {
         returnToHomeButton = findViewById(R.id.backToHomeBtn);
 
         databaseReference = FirebaseDatabase.getInstance() .getReference("Countdowns");
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
 
         addCountdownButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,11 +82,19 @@ public class CountdownActivity extends AppCompatActivity {
 
         if (inputDate.matches(dateFormat) && inputTime.matches(timeFormat) && !inputTitle.isEmpty()) {
 
-            Countdown countdown = new Countdown();
+            if (currentUser != null) {
 
-            countdown.setTitle(inputTitle);
-            countdown.setDate(inputDate);
-            countdown.setTime(inputTime);
+                String userID = currentUser.getUid();
+
+                Countdown countdown = new Countdown();
+
+                countdown.setTitle(inputTitle);
+                countdown.setDate(inputDate);
+                countdown.setTime(inputTime);
+                countdown.setUserID(userID);
+
+                saveCountdownToDatabase(countdown);
+            }
 
         } else if (!inputDate.matches(dateFormat)) {
             date.setError("Incorrect date format. Please use DD.MM.YYYY.");
@@ -90,7 +105,7 @@ public class CountdownActivity extends AppCompatActivity {
         }
     }
 
-    /*private void saveCountdownToDatabase(Countdown countdown) {
+    private void saveCountdownToDatabase(Countdown countdown) {
 
         String key = databaseReference.push().getKey();
 
@@ -105,5 +120,5 @@ public class CountdownActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }*/
+    }
 }
