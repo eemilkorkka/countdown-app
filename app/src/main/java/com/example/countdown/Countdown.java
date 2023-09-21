@@ -1,9 +1,10 @@
 package com.example.countdown;
 
-import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
-import java.util.UUID;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Countdown {
 
@@ -39,5 +40,15 @@ public class Countdown {
 
     public String getUserID() {
         return userID;
+    }
+
+    public Duration getRemainingTime() {
+
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime targetTime = LocalDateTime.parse(date + " " + time, DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
+
+        Duration duration = Duration.between(currentTime, targetTime);
+
+        return duration;
     }
 }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:background="@color/gray">
+
+        <TextView
+            android:id="@+id/countdownTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Countdown title"
+            android:textSize="18dp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Days"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="30dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hours"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="30dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minutes"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="30dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seconds"
+            android:layout_marginLeft="270dp"
+            android:layout_marginTop="30dp" />
+
+        <TextView
+            android:id="@+id/daysValueTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Days"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="50dp" />
+
+        <TextView
+            android:id="@+id/hoursValueTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hours"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="50dp" />
+
+        <TextView
+            android:id="@+id/minutesValueTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minutes"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="50dp" />
+
+        <TextView
+            android:id="@+id/secondsValueTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seconds"
+            android:layout_marginLeft="270dp"
+            android:layout_marginTop="50dp" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
