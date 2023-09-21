@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         myAdapter = new MyAdapter(this, list);
         recyclerView.setAdapter(myAdapter);
 
-        Handler handler = new Handler();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
