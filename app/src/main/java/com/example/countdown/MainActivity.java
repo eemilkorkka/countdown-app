@@ -2,23 +2,20 @@ package com.example.countdown;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.admin.NetworkEvent;
 import android.content.Intent;
-import android.net.Network;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton newCountdownButton;
+    private Button logOutButton;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
 
@@ -28,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         newCountdownButton = findViewById(R.id.newCountdownBtn);
+        logOutButton = findViewById(R.id.logOutBtn);
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -37,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth.signOut();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         newCountdownButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextView signUpTextView;
+    private TextView signUpTextView, forgotPasswordTextView;
     private EditText emailEditText, passwordEditText;
     private Button loginButton;
     private FirebaseAuth firebaseAuth;
@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         signUpTextView = findViewById(R.id.signUpText);
+        forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView);
         loginButton = findViewById(R.id.loginBtn);
 
         String text = "You don't have an account? Sign up";
@@ -48,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
+                /*In case the user doesn't have an account, allow them to click on string text which will
+                 take them to the sign up activity*/
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
@@ -64,6 +67,14 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
 
                 login(email, password);
+            }
+        });
+
+        forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }
