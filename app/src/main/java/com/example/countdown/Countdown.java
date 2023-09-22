@@ -1,9 +1,14 @@
 package com.example.countdown;
 
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Countdown {
-    String title;
-    String date;
-    String time;
+
+    private String title, date, time, userID;
 
     public void setTitle(String title) {
         this.title = title;
@@ -17,6 +22,10 @@ public class Countdown {
         this.time = time;
     }
 
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -27,5 +36,19 @@ public class Countdown {
 
     public String getTime() {
         return time;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public Duration getRemainingTime() {
+
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime targetTime = LocalDateTime.parse(date + " " + time, DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
+
+        Duration duration = Duration.between(currentTime, targetTime);
+
+        return duration;
     }
 }

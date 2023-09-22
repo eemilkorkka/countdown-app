@@ -3,31 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <EditText
         android:id="@+id/editTextTitle"
         android:layout_width="212dp"
         android:layout_height="56dp"
         android:ems="10"
+        android:hint=" Title"
         android:inputType="text"
-        android:text="Title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.097" />
+        app:layout_constraintVertical_bias="0.164" />
 
     <EditText
         android:id="@+id/editTextDate"
         android:layout_width="211dp"
         android:layout_height="54dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="80dp"
         android:ems="10"
+        android:hint=" Date DD.MM.YYYY"
         android:inputType="date"
-        android:text="Date"
-        android:hint="DD.MM.YYYY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
@@ -36,12 +36,12 @@
         android:id="@+id/editTextTime"
         android:layout_width="202dp"
         android:layout_height="51dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="80dp"
         android:ems="10"
+        android:hint=" Time HH:MM"
         android:inputType="time"
-        android:text="Time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
@@ -57,5 +57,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTime"
         app:layout_constraintVertical_bias="0.053" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/backToHomeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
