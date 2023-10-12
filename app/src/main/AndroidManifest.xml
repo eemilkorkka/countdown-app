@@ -41,6 +41,10 @@
             android:name=".ResetPasswordActivity"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".EditCountdownActivity"
+            android:exported="false">
+        </activity>
     </application>
 
 </manifest>

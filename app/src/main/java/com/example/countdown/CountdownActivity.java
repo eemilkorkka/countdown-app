@@ -4,10 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Network;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,12 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.UUID;
 
 public class CountdownActivity extends AppCompatActivity {
 
@@ -85,6 +77,7 @@ public class CountdownActivity extends AppCompatActivity {
             if (currentUser != null) {
 
                 String userID = currentUser.getUid();
+                String countdownID = UUID.randomUUID().toString();
 
                 Countdown countdown = new Countdown();
 
@@ -92,6 +85,7 @@ public class CountdownActivity extends AppCompatActivity {
                 countdown.setDate(inputDate);
                 countdown.setTime(inputTime);
                 countdown.setUserID(userID);
+                countdown.setCountdownID(countdownID);
 
                 saveCountdownToDatabase(countdown);
             }
@@ -109,7 +103,7 @@ public class CountdownActivity extends AppCompatActivity {
 
         String key = databaseReference.push().getKey();
 
-        databaseReference.child(key).setValue(countdown)
+        databaseReference.child(countdown.getCountdownID()).setValue(countdown)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
