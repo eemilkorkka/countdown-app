@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,9 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.ArrayList;
 
 
@@ -32,10 +28,11 @@ public class MainActivity extends AppCompatActivity {
     private Button logOutButton;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
-    RecyclerView recyclerView;
-    DatabaseReference databaseReference;
-    MyAdapter myAdapter;
-    ArrayList<Countdown> list;
+    private RecyclerView recyclerView;
+    private DatabaseReference databaseReference;
+    private MyAdapter myAdapter;
+    private Countdown countdown;
+    private ArrayList<Countdown> countdownsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,22 +72,22 @@ public class MainActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("Countdowns");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        list = new ArrayList<>();
-        myAdapter = new MyAdapter(this, list, recyclerView);
+        countdownsList = new ArrayList<>();
+        myAdapter = new MyAdapter(this, countdownsList, recyclerView);
         recyclerView.setAdapter(myAdapter);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list.clear();
+                countdownsList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Countdown countdown = dataSnapshot.getValue(Countdown.class);
 
                     if (countdown.getUserID().equals(user.getUid())) {
-                        list.add(countdown);
+                        countdownsList.add(countdown);
                     }
 
-                    Log.d("MainActivity", String.valueOf(list.size()));
+                    Log.d("MainActivity", String.valueOf(countdownsList.size()));
                 }
                 myAdapter.notifyDataSetChanged();
             }

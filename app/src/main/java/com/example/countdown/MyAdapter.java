@@ -1,8 +1,10 @@
 package com.example.countdown;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -37,6 +39,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         Countdown countdown = list.get(position);
         holder.countdownTitleTextView.setText(countdown.getTitle());
         updateCountdownTextViews(holder, countdown.getRemainingTime());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EditCountdownActivity.class);
+                intent.putExtra("title", countdown.getTitle());
+                intent.putExtra("date", countdown.getDate());
+                intent.putExtra("time", countdown.getTime());
+                intent.putExtra("countdownID", countdown.getCountdownID());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
