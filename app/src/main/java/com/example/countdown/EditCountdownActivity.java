@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class EditCountdownActivity extends AppCompatActivity {
 
     private Button saveCountdownButton;
-    private FloatingActionButton returnToHomeBtn;
+    private FloatingActionButton returnToHomeButton, deleteCountdownButton;
     private String title, date, time, countdownID;
     private TextView countdownTitle;
     private EditText countdownDate, countdownTime;
@@ -33,7 +33,8 @@ public class EditCountdownActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editcountdown);
 
         saveCountdownButton = findViewById(R.id.updateCountdownBtn);
-        returnToHomeBtn = findViewById(R.id.backToHomeBtn);
+        returnToHomeButton = findViewById(R.id.backToHomeBtn);
+        deleteCountdownButton = findViewById(R.id.deleteCountdownBtn);
         countdownTitle = findViewById(R.id.editTextTitle);
         countdownDate = findViewById(R.id.editTextDate);
         countdownTime = findViewById(R.id.editTextTime);
@@ -58,11 +59,18 @@ public class EditCountdownActivity extends AppCompatActivity {
             }
         });
 
-        returnToHomeBtn.setOnClickListener(new View.OnClickListener() {
+        returnToHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditCountdownActivity.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        deleteCountdownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteCountdown();
             }
         });
     }
@@ -85,5 +93,14 @@ public class EditCountdownActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void deleteCountdown() {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Countdowns");
+        databaseReference.child(countdownID).removeValue();
+
+        Intent intent = new Intent(EditCountdownActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
