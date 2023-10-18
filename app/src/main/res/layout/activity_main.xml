@@ -12,7 +12,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="52dp"
         android:text="Countdowns"
         android:textColor="@color/black"
