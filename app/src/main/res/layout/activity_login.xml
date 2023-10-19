@@ -101,4 +101,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn"
         app:layout_constraintVertical_bias="0.801" />
+
+    <TextView
+        android:id="@+id/showPasswordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="SHOW"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/forgotPasswordTextView"
+        app:layout_constraintEnd_toEndOf="@+id/passwordEditText"
+        app:layout_constraintTop_toTopOf="@+id/passwordEditText"
+        app:layout_constraintVertical_bias="0.485" />
 </androidx.constraintlayout.widget.ConstraintLayout>
