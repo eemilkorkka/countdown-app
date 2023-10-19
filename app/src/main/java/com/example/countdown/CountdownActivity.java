@@ -59,6 +59,19 @@ public class CountdownActivity extends AppCompatActivity {
             }
         });
 
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerFragment().show(getSupportFragmentManager(), "datePicker");
+            }
+        });
+
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new TimePickerFragment().show(getSupportFragmentManager(), "timePicker");
+            }
+        });
     }
 
     private void addCountdown() {
@@ -66,13 +79,7 @@ public class CountdownActivity extends AppCompatActivity {
         String inputDate = date.getText().toString();
         String inputTime = time.getText().toString();
 
-        // Using regex to make sure that the date is in DD.MM.YYYY format
-        String dateFormat = "^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.\\d{4}$";
-
-        // Using regex to make sure that the time is in HH:MM format
-        String timeFormat = "^(?:[01]\\d|2[0-3]):[0-5]\\d$";
-
-        if (inputDate.matches(dateFormat) && inputTime.matches(timeFormat) && !inputTitle.isEmpty()) {
+        if (!inputTitle.isEmpty() && !inputDate.isEmpty() && !inputTime.isEmpty()) {
 
             if (currentUser != null) {
 
@@ -89,13 +96,6 @@ public class CountdownActivity extends AppCompatActivity {
 
                 saveCountdownToDatabase(countdown);
             }
-
-        } else if (!inputDate.matches(dateFormat)) {
-            date.setError("Incorrect date format. Please use DD.MM.YYYY.");
-        } else if (!inputTime.matches(timeFormat)) {
-            time.setError("Incorrect time format. Please use HH:MM");
-        } else if (inputTitle.isEmpty()) {
-            title.setError("Cannot have an empty title.");
         }
     }
 

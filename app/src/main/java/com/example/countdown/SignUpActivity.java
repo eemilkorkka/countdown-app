@@ -45,17 +45,17 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (email.isEmpty()) {
                     emailEditText.setError("You must enter an email");
-                }
-
-                if (password.isEmpty() || confirmPassword.isEmpty()) {
-                    passwordEditText.setError("You must enter a password");
-                }
-
-                if (password.equals(confirmPassword)) {
-                    createAccount(email, password);
-                    passwordEditText.setError(null);
+                } else if (password.isEmpty()) {
+                    passwordEditText.setError("You must enter a password!");
+                } else if (confirmPassword.isEmpty()) {
+                    confirmPasswordEditText.setError("You must enter your password again!");
                 } else {
-                    passwordEditText.setError("Passwords do not match!");
+                    if (password.equals(confirmPassword)) {
+                        createAccount(email, password);
+                        passwordEditText.setError(null);
+                    } else {
+                        passwordEditText.setError("Passwords do not match!");
+                    }
                 }
             }
         });

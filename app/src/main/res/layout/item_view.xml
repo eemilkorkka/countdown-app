@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="15dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,12 +18,14 @@
             android:layout_height="wrap_content"
             android:text="Countdown title"
             android:textSize="18dp"
+            android:textColor="@color/black"
             android:textAlignment="center" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Days"
+            android:textColor="@color/black"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="30dp" />
 
@@ -31,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hours"
+            android:textColor="@color/black"
             android:layout_marginLeft="130dp"
             android:layout_marginTop="30dp" />
 
@@ -38,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Minutes"
+            android:textColor="@color/black"
             android:layout_marginLeft="200dp"
             android:layout_marginTop="30dp" />
 
@@ -45,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Seconds"
+            android:textColor="@color/black"
             android:layout_marginLeft="270dp"
             android:layout_marginTop="30dp" />
 
@@ -53,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Days"
+            android:textColor="@color/black"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="50dp" />
 
@@ -61,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hours"
+            android:textColor="@color/black"
             android:layout_marginLeft="130dp"
             android:layout_marginTop="50dp" />
 
@@ -69,6 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Minutes"
+            android:textColor="@color/black"
             android:layout_marginLeft="200dp"
             android:layout_marginTop="50dp" />
 
@@ -77,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Seconds"
+            android:textColor="@color/black"
             android:layout_marginLeft="270dp"
             android:layout_marginTop="50dp" />
 
