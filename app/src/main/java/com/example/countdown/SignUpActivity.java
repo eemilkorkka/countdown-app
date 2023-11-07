@@ -1,16 +1,10 @@
 package com.example.countdown;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,7 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText, confirmPasswordEditText;
-    private TextView loginTextView;
     private Button signUpButton;
     private FirebaseAuth firebaseAuth;
     private String TAG = "SignUpActivity";
@@ -39,26 +32,8 @@ public class SignUpActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         signUpButton = findViewById(R.id.signUpBtn);
-        loginTextView = findViewById(R.id.loginText);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
-        String text = "Already have an account? Log in";
-
-        SpannableString spannableString = new SpannableString(text);
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View view) {
-                /*In case the user has an account, allow them to click on string text which will
-                 take them to the login activity*/
-                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        };
-
-        spannableString.setSpan(clickableSpan, 25, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        loginTextView.setText(spannableString);
-        loginTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override

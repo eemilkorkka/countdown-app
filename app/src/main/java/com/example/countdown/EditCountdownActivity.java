@@ -73,20 +73,6 @@ public class EditCountdownActivity extends AppCompatActivity {
                 deleteCountdown();
             }
         });
-
-        countdownDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new DatePickerFragment().show(getSupportFragmentManager(), "datePicker");
-            }
-        });
-
-        countdownTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new TimePickerFragment().show(getSupportFragmentManager(), "timePicker");
-            }
-        });
     }
 
     private void updateCountdown(String title, String date, String time) {

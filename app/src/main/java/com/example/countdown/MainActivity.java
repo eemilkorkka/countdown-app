@@ -26,12 +26,13 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton newCountdownButton;
-    private FloatingActionButton logOutButton;
+    private Button logOutButton;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
     private MyAdapter myAdapter;
+    private Countdown countdown;
     private ArrayList<Countdown> countdownsList;
 
     @Override
