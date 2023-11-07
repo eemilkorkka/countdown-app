@@ -29,8 +29,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailEditText, passwordEditText;
     private Button loginButton;
     private FirebaseAuth firebaseAuth;
-    private String TAG = "LoginActivity";
-
     private boolean isShowingPassword = false;
 
     @Override
@@ -45,9 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         showPasswordText = findViewById(R.id.showPasswordText);
         loginButton = findViewById(R.id.loginBtn);
 
-        String text = "You don't have an account? Sign up";
-
         firebaseAuth = FirebaseAuth.getInstance();
+
+        String text = "You don't have an account? Sign up";
 
         SpannableString spannableString = new SpannableString(text);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -112,13 +110,11 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, switch activity to MainActivity
-                            Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Login failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
