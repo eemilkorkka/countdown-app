@@ -2,6 +2,7 @@ package com.example.countdown;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -24,11 +25,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextView signUpTextView, forgotPasswordTextView;
+    private TextView signUpTextView, forgotPasswordTextView, showPasswordText;
     private EditText emailEditText, passwordEditText;
     private Button loginButton;
     private FirebaseAuth firebaseAuth;
-    private String TAG = "LoginActivity";
+    private boolean isShowingPassword = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,12 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         signUpTextView = findViewById(R.id.signUpText);
         forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView);
+        showPasswordText = findViewById(R.id.showPasswordText);
         loginButton = findViewById(R.id.loginBtn);
 
-        String text = "You don't have an account? Sign up";
-
         firebaseAuth = FirebaseAuth.getInstance();
+
+        String text = "You don't have an account? Sign up";
 
         SpannableString spannableString = new SpannableString(text);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -83,6 +85,22 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        showPasswordText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!isShowingPassword) {
+                    passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    isShowingPassword = true;
+                } else {
+                    passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    isShowingPassword = false;
+                }
+
+                showPasswordText.setText(isShowingPassword ? "HIDE" : "SHOW");
+            }
+        });
     }
 
     private void login(String email, String password) {
@@ -92,13 +110,11 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, switch activity to MainActivity
-                            Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Login failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
