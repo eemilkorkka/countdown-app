@@ -1,3 +1,4 @@
+¨
 # Countdown App
 
 A native Android application written in Java that allows you to create and manage countdowns for any important events or dates you might be looking forward to! ⏱️
@@ -10,4 +11,12 @@ A native Android application written in Java that allows you to create and manag
 - Real-time updates allow you to watch your countdowns tick-away in real time,
     keeping you informed about how much time remains until your special day.
 - Account registration, Log-in & Sign-out.
+
+
+## Screenshots
+
+![App Screenshot](https://i.imgur.com/UwpMjKJ.png)
+![App Screenshot](https://i.imgur.com/WJjkFnI.png)
+![App Screenshot](https://i.imgur.com/X8tIrsO.png)
+![App Screenshot](https://i.imgur.com/VOkcm0P.png)
 
