@@ -77,15 +77,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
     private void updateCountdownTextViews(MyViewHolder holder, Duration remainingTime) {
-        long totalSeconds = remainingTime.getSeconds();
-        long days = totalSeconds / (60 * 60 * 24);
-        long hours = (totalSeconds % (60 * 60 * 24)) / (60 * 60);
-        long minutes = (totalSeconds % (60 * 60)) / 60;
-        long seconds = totalSeconds % 60;
 
-        holder.daysValueTextView.setText(String.valueOf(days));
-        holder.hoursValueTextView.setText(String.valueOf(hours));
-        holder.minutesValueTextView.setText(String.valueOf(minutes));
-        holder.secondsValueTextView.setText(String.valueOf(seconds));
+        long totalSeconds = remainingTime.getSeconds();
+
+        if (totalSeconds > 0) {
+            long days = totalSeconds / (60 * 60 * 24);
+            long hours = (totalSeconds % (60 * 60 * 24)) / (60 * 60);
+            long minutes = (totalSeconds % (60 * 60)) / 60;
+            long seconds = totalSeconds % 60;
+
+            holder.daysValueTextView.setText(String.valueOf(days));
+            holder.hoursValueTextView.setText(String.valueOf(hours));
+            holder.minutesValueTextView.setText(String.valueOf(minutes));
+            holder.secondsValueTextView.setText(String.valueOf(seconds));
+        }
     }
 }
